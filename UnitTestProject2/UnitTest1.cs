@@ -38,6 +38,44 @@ namespace UnitTestProject2
 		}
 
 		[TestMethod]
+		public void SPCustomerWithValidParamsReturnsCorrectData()
+		{
+			//Arrange
+			string connectionString = GetConnectionString();
+			using (connection = new SqlConnection(connectionString))
+			{
+				// Create the command and set its properties.
+				command = new SqlCommand("Customer", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				AddParameter("John", "@FirstName");
+				AddParameter("Beaver", "@LastName");
+				connection.Open();
+
+				//Act
+				reader = command.ExecuteReader();
+
+				//Assert
+				while (reader.HasRows)
+				{
+					Console.WriteLine("\t{0}\t{1}", reader.GetName(0),
+						reader.GetName(1));
+
+					while (reader.Read())
+					{
+						//Expected should be a param rather than hardcoded
+						Assert.AreEqual(reader.GetString(0), "John");
+						Assert.AreEqual(reader.GetString(1), "Beaver");
+					}
+					reader.NextResult();
+				}
+
+			}
+
+			CloseSQLConnection();
+
+		}
+
+		[TestMethod]
 		public void SPCustomerWithInvalidParamsReturns0Rows()
 		{
 			//Arrange
