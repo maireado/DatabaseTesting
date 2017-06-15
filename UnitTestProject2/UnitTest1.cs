@@ -15,7 +15,7 @@ namespace UnitTestProject2
 		[TestMethod]
 		public void SPCustomerWithValidParamsReturnsRows()
 		{
-			//Arrange
+			//Arrange - should be a try catch 
 			string connectionString = GetConnectionString();
 			using (connection = new SqlConnection(connectionString))
 			{
@@ -98,6 +98,30 @@ namespace UnitTestProject2
 		}
 
 		[TestMethod]
+		public void SPCustomerWithFirstNameNVCHAR50ReturnsRows()
+		{
+			//Arrange
+			string connectionString = GetConnectionString();
+			using (connection = new SqlConnection(connectionString))
+			{
+				// Create the command and set its properties.
+				command = new SqlCommand("Customer", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				AddParameter("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "@FirstName");
+				AddParameter("Gee", "@LastName");
+				connection.Open();
+
+				//Act
+				reader = command.ExecuteReader();
+
+				//Assert
+				Assert.AreEqual(reader.HasRows, true);
+			}
+
+			CloseSQLConnection();
+		}
+
+		[TestMethod]
 		[ExpectedException(typeof(SqlException))]
 		public void SPCustomerWithNoParamsThrowsException()
 		{
@@ -108,6 +132,48 @@ namespace UnitTestProject2
 				// Create the command and set its properties.
 				command = new SqlCommand("Customer", connection);
 				command.CommandType = System.Data.CommandType.StoredProcedure;
+				connection.Open();
+
+				//Act
+				reader = command.ExecuteReader();
+			}
+
+			CloseSQLConnection();
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(SqlException))]
+		public void SPCustomerWithNoFirstNameParamThrowsException()
+		{
+			//Arrange
+			string connectionString = GetConnectionString();
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				// Create the command and set its properties.
+				command = new SqlCommand("Customer", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				AddParameter("Beaver", "@LastName");
+				connection.Open();
+
+				//Act
+				reader = command.ExecuteReader();
+			}
+
+			CloseSQLConnection();
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(SqlException))]
+		public void SPCustomerWithNoLastNameParamThrowsException()
+		{
+			//Arrange
+			string connectionString = GetConnectionString();
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				// Create the command and set its properties.
+				command = new SqlCommand("Customer", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				AddParameter("John", "@FirstName");
 				connection.Open();
 
 				//Act
