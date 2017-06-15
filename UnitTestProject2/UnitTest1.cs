@@ -20,8 +20,7 @@ namespace UnitTestProject2
 			using (connection = new SqlConnection(connectionString))
 			{
 				// Create the command and set its properties.
-				command = new SqlCommand("Customer", connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				CreateCommand(connection);
 				AddParameter("John", "@FirstName");
 				AddParameter("Beaver", "@LastName");
 				connection.Open();
@@ -44,8 +43,7 @@ namespace UnitTestProject2
 			using (connection = new SqlConnection(connectionString))
 			{
 				// Create the command and set its properties.
-				command = new SqlCommand("Customer", connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				CreateCommand(connection);
 				AddParameter("John", "@FirstName");
 				AddParameter("Beaver", "@LastName");
 				connection.Open();
@@ -80,8 +78,7 @@ namespace UnitTestProject2
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				// Create the command and set its properties.
-				command = new SqlCommand("Customer", connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				CreateCommand(connection);
 				AddParameter("John", "@FirstName");
 				AddParameter("Smith", "@LastName");
 				connection.Open();
@@ -105,8 +102,7 @@ namespace UnitTestProject2
 			using (connection = new SqlConnection(connectionString))
 			{
 				// Create the command and set its properties.
-				command = new SqlCommand("Customer", connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				CreateCommand(connection);
 				AddParameter("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "@FirstName");
 				AddParameter("Gee", "@LastName");
 				connection.Open();
@@ -130,8 +126,7 @@ namespace UnitTestProject2
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				// Create the command and set its properties.
-				command = new SqlCommand("Customer", connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				CreateCommand(connection);
 				connection.Open();
 
 				//Act
@@ -150,8 +145,7 @@ namespace UnitTestProject2
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				// Create the command and set its properties.
-				command = new SqlCommand("Customer", connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				CreateCommand(connection);
 				AddParameter("Beaver", "@LastName");
 				connection.Open();
 
@@ -171,8 +165,7 @@ namespace UnitTestProject2
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				// Create the command and set its properties.
-				command = new SqlCommand("Customer", connection);
-				command.CommandType = System.Data.CommandType.StoredProcedure;
+				CreateCommand(connection);
 				AddParameter("John", "@FirstName");
 				connection.Open();
 
@@ -181,6 +174,12 @@ namespace UnitTestProject2
 			}
 
 			CloseSQLConnection();
+		}
+
+		private static void CreateCommand(SqlConnection conn)
+		{
+			command = new SqlCommand("Customer", conn);
+			command.CommandType = System.Data.CommandType.StoredProcedure;
 		}
 
 
