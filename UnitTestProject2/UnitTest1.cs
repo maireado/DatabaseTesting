@@ -34,7 +34,6 @@ namespace UnitTestProject2
 			}
 
 			CloseSQLConnection();
-
 		}
 
 		[TestMethod]
@@ -68,11 +67,9 @@ namespace UnitTestProject2
 					}
 					reader.NextResult();
 				}
-
 			}
 
 			CloseSQLConnection();
-
 		}
 
 		[TestMethod]
@@ -115,7 +112,6 @@ namespace UnitTestProject2
 
 				//Act
 				reader = command.ExecuteReader();
-
 			}
 
 			CloseSQLConnection();
