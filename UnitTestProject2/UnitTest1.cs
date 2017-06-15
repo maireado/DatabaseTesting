@@ -98,7 +98,7 @@ namespace UnitTestProject2
 			parameter.Direction = System.Data.ParameterDirection.Input;
 			parameter.Value = inputParam;
 
-			// Add the parameter to the Parameters collection. 
+			// Add the parameter to the Parameters collection
 			if (command != null)
 			{
 				command.Parameters.Add(parameter);
